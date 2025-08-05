@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Digital Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #0f3460;
+            --accent-color: #16213e;
+            --blue-accent: #4169e1;
+            --text-light: #ffffff;
+            --text-gray: #a8a8a8;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
+            color: var(--text-light);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(26, 26, 46, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        /* Deshabilitar animaciones del logo en móvil */
+        @media (max-width: 768px) {
+            .logo {
+                transition: none;
+                transform: none !important;
+            }
+            
+            .logo:hover {
+                color: var(--text-light);
+                transform: none;
+            }
+        }
+
+        /* En desktop mantener animaciones */
+        @media (min-width: 769px) {
+            .logo:hover {
+                color: var(--blue-accent);
+                transform: scale(1.05);
+            }
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-item a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-item a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--blue-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-item a:hover::after {
+            width: 100%;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Deshabilitar animaciones de social links en móvil */
+        @media (max-width: 768px) {
+            .social-links a {
+                transition: none;
+                transform: none !important;
+            }
+            
+            .social-links a:hover {
+                color: var(--blue-accent);
+                transform: none;
+            }
+        }
+
+        /* En desktop mantener animaciones */
+        @media (min-width: 769px) {
+            .social-links a:hover {
+                color: var(--blue-accent);
+                transform: translateY(-3px);
+            }
+        }
+
+        .lang-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        /* Deshabilitar animaciones del botón de idioma en móvil */
+        @media (max-width: 768px) {
+            .lang-toggle {
+                transition: none;
+                transform: none !important;
+            }
+            
+            .lang-toggle:hover {
+                background: var(--blue-accent);
+                transform: none;
+            }
+        }
+
+        /* En desktop mantener animaciones */
+        @media (min-width: 769px) {
+            .lang-toggle:hover {
+                background: var(--blue-accent);
+                transform: translateY(-2px);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+        }
+
+        .section {
+            min-height: 90vh;
+            padding: 3rem 2rem;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--text-light), var(--blue-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        /* Deshabilitar animación del título en móvil */
+        @media (max-width: 768px) {
+            .hero h1 {
+                animation: none;
+                filter: brightness(1);
+                font-size: 2.5rem;
+            }
+        }
+
+        @keyframes titleGlow {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.2); }
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            animation: slideIn 1s ease 0.5s both;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: slideIn 1s ease 1s both;
+        }
+
+        /* Experience Section */
+        .experience-slider {
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+        }
+
+        .slides-container {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide {
+            min-width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .slide-content {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 600px;
+            transform: scale(0.9);
+            transition: all 0.5s ease;
+        }
+
+        .slide.active .slide-content {
+            transform: scale(1);
+        }
+
+        .slide-icon {
+            font-size: 3rem;
+            color: var(--blue-accent);
+            margin-bottom: 1.5rem;
+            animation: iconBounce 2s ease-in-out infinite;
+        }
+
+        /* Reducir animación de íconos de slide en móvil */
+        @media (max-width: 768px) {
+            .slide-icon {
+                animation: iconBounce 4s ease-in-out infinite;
+            }
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .slide h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .slide p {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: var(--blue-accent);
+            transform: scale(1.2);
+        }
+
+        /* Brands Section */
+        .brands-scroll {
+            overflow-x: auto;
+            padding: 2rem 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .brands-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .brands-container {
+            display: flex;
+            gap: 2rem;
+            min-width: max-content;
+            animation: scrollBrands 20s linear infinite;
+        }
+
+        @keyframes scrollBrands {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .brand-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            min-width: 280px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .brand-card:hover::before {
+            left: 100%;
+        }
+
+        .brand-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .brand-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--blue-accent), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: var(--text-light);
+        }
+
+        /* Tools Section */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tool-category {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue-accent), var(--secondary-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .tool-category:hover::before {
+            transform: scaleX(1);
+        }
+
+        .tool-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--blue-accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tool-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tool-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .tool-item:hover {
+            background: var(--blue-accent);
+            transform: translateY(-2px);
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, var(--blue-accent) 0%, transparent 70%);
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .contact-item:hover::before {
+            width: 200px;
+            height: 200px;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            color: var(--blue-accent);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--text-light), var(--blue-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
+            border-top: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--blue-accent), transparent);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 3rem;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--text-light), var(--blue-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-tagline {
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .social-icon:hover::before {
+            left: 100%;
+        }
+
+        .social-icon:hover {
+            background: var(--blue-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(65, 105, 225, 0.3);
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--blue-accent);
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-links li a,
+        .footer-links li span {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: block;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .footer-links li a::before,
+        .footer-links li span::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--blue-accent);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links li a:hover::before {
+            opacity: 1;
+            transform: translateX(3px);
+        }
+
+        .footer-links li a:hover {
+            color: var(--text-light);
+            padding-left: 1.5rem;
+        }
+
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info:hover {
+            color: var(--text-light);
+            transform: translateX(5px);
+        }
+
+        .contact-info i {
+            color: var(--blue-accent);
+            width: 16px;
+            text-align: center;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding: 1.5rem 0;
+            margin-top: 1.5rem;
+        }
+
+        .footer-bottom-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .copyright {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-bottom-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-bottom-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--blue-accent);
+            transition: width 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--text-light);
+        }
+
+        .footer-bottom-links a:hover::after {
+            width: 100%;
+        }
+
+        .made-with {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .heart-beat {
+            color: #ff4757;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        /* Reducir animación del corazón en móvil */
+        @media (max-width: 768px) {
+            .heart-beat {
+                animation: heartbeat 3s ease-in-out infinite;
+            }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1.05); }
+            75% { transform: scale(1.15); }
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--blue-accent);
+            color: var(--text-light);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            box-shadow: 0 5px 15px rgba(65, 105, 225, 0.3);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(65, 105, 225, 0.4);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 2rem 1rem;
+                min-height: 80vh;
+            }
+
+            .slide-content {
+                padding: 2rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .brands-container {
+                animation: none;
+            }
+
+            .hero-animation {
+                width: 250px;
+                height: 250px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem 0 1rem;
+            }
+
+            .footer-brand {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-bottom-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .footer-bottom-links {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .made-with {
+                justify-content: center;
+            }
+
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+            }
+
+            /* Deshabilitar animaciones de hover en móvil */
+            .social-icon:hover {
+                transform: none;
+                box-shadow: 0 5px 15px rgba(65, 105, 225, 0.3);
+            }
+
+            .back-to-top:hover {
+                transform: translateY(0);
+                box-shadow: 0 5px 15px rgba(65, 105, 225, 0.3);
+            }
+
+            .contact-item:hover {
+                transform: none;
+                box-shadow: none;
+            }
+
+            .tool-category:hover {
+                transform: none;
+                box-shadow: none;
+            }
+
+            .brand-card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+
+            .tool-item:hover {
+                transform: none;
+            }
+
+            .contact-info:hover {
+                transform: none;
+            }
+        }
+
+        /* Scroll animations */
+        .animate-in {
+            animation: slideInUp 0.8s ease forwards;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hidden class for language toggle */
+        .hidden {
+            display: none;
+        }
+
+        /* Reducir el uso de backdrop-filter en móvil para mejor rendimiento */
+        @media (max-width: 768px) {
+            .header {
+                backdrop-filter: blur(10px);
+            }
+            
+            .slide-content,
+            .brand-card,
+            .tool-category,
+            .contact-item,
+            .social-icon {
+                backdrop-filter: blur(10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="nav-container">
+            <a href="#inicio" class="logo">Pedro Dávila</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#inicio" data-en="Home">Inicio</a></li>
+                <li class="nav-item"><a href="#experiencia" data-en="Experience">Experiencia</a></li>
+                <li class="nav-item"><a href="#marcas" data-en="Brands">Marcas</a></li>
+                <li class="nav-item"><a href="#herramientas" data-en="Tools">Herramientas</a></li>
+                <li class="nav-item"><a href="#contacto" data-en="Contact">Contacto</a></li>
+            </ul>
+            <div style="display: flex; align-items: center;">
+                <div class="social-links">
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Behance"><i class="fab fa-behance"></i></a>
+                    <a href="mailto:pedro.davila.sv@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+                <button class="lang-toggle" onclick="toggleLanguage()">EN</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="inicio" class="section hero">
+            <div class="container">
+                <h1 data-en="Pedro Enrique Dávila Gómez">Pedro Enrique Dávila Gómez</h1>
+                <h2 data-en="Digital Marketing Specialist, Web Analytics & Content Strategy">Especialista en Marketing Digital, Analítica Web y Estrategia de Contenido</h2>
+                <p data-en="I am a digital marketing professional with experience executing and optimizing campaigns, developing content and generating actionable insights. I have worked with brands from different sectors, adding value through analysis and creativity.">
+                    Soy un profesional del marketing digital con experiencia ejecutando y optimizando campañas, desarrollando contenido y generando insights accionables. He trabajado con marcas de distintos sectores, aportando valor desde el análisis y la creatividad.
+                </p>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experiencia" class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2 data-en="Experience & Knowledge">Experiencia y Conocimientos</h2>
+                    <p data-en="My key competencies in digital marketing">Mis competencias clave en marketing digital</p>
+                </div>
+                <div class="experience-slider">
+                    <div class="slides-container" id="slidesContainer">
+                        <div class="slide active">
+                            <div class="slide-content">
+                                <div class="slide-icon"><i class="fas fa-bullhorn"></i></div>
+                                <h3 data-en="Campaign Execution & Monitoring">Ejecución y monitoreo de campañas</h3>
+                                <p data-en="Expert management of advertising campaigns on Meta Ads, Google Ads and TikTok Ads with continuous optimization.">Gestión experta de campañas publicitarias en Meta Ads, Google Ads y TikTok Ads con optimización continua.</p>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-content">
+                                <div class="slide-icon"><i class="fas fa-calendar-alt"></i></div>
+                                <h3 data-en="Content Grid Development">Desarrollo de parrilla de contenidos</h3>
+                                <p data-en="Strategic planning and creation of content calendars for various brands, ensuring consistency and engagement.">Planificación estratégica y creación de calendarios de contenido para diversas marcas, asegurando consistencia y engagement.</p>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-content">
+                                <div class="slide-icon"><i class="fas fa-chart-line"></i></div>
+                                <h3 data-en="Results Reports & Insights">Reportes de resultados e insights</h3>
+                                <p data-en="Detailed analysis and reporting of campaign performance with actionable recommendations for continuous improvement.">Análisis detallado y reporte de rendimiento de campañas con recomendaciones accionables para mejora continua.</p>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-content">
+                                <div class="slide-icon"><i class="fas fa-analytics"></i></div>
+                                <h3 data-en="Digital Analytics Monitoring">Monitoreo y uso de herramientas de analítica digital</h3>
+                                <p data-en="Advanced use of GA4, GTM and other analytics tools for data-driven decision making.">Uso avanzado de GA4, GTM y otras herramientas de analítica para toma de decisiones basada en datos.</p>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-content">
+                                <div class="slide-icon"><i class="fas fa-tags"></i></div>
+                                <h3 data-en="Tag Implementation & Maintenance">Implementación y mantenimiento de tags</h3>
+                                <p data-en="Technical setup and maintenance of tracking tags for comprehensive web monitoring and analysis.">Configuración técnica y mantenimiento de tags de seguimiento para monitoreo y análisis web integral.</p>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-content">
+                                <div class="slide-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                <h3 data-en="Executive Dashboard Development">Desarrollo de dashboards ejecutivos</h3>
+                                <p data-en="Creation of comprehensive dashboards in Google Analytics and Looker Studio for executive reporting.">Creación de dashboards integrales en Google Analytics y Looker Studio para reportes ejecutivos.</p>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-content">
+                                <div class="slide-icon"><i class="fas fa-cogs"></i></div>
+                                <h3 data-en="Owned Media Optimization">Optimización de medios propios</h3>
+                                <p data-en="Enhancement of owned channels: email marketing, websites, chatbots, WhatsApp, and more.">Mejora de canales propios: mailing, web, chatbot, WhatsApp y más.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider-nav">
+                        <div class="nav-dot active" onclick="goToSlide(0)"></div>
+                        <div class="nav-dot" onclick="goToSlide(1)"></div>
+                        <div class="nav-dot" onclick="goToSlide(2)"></div>
+                        <div class="nav-dot" onclick="goToSlide(3)"></div>
+                        <div class="nav-dot" onclick="goToSlide(4)"></div>
+                        <div class="nav-dot" onclick="goToSlide(5)"></div>
+                        <div class="nav-dot" onclick="goToSlide(6)"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brands Section -->
+        <section id="marcas" class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2 data-en="Brands I've Worked With">Marcas con las que he trabajado</h2>
+                    <p data-en="Successful collaborations across various industries">Colaboraciones exitosas en diversas industrias</p>
+                </div>
+                <div class="brands-scroll">
+                    <div class="brands-container">
+                        <div class="brand-card">
+                            <div class="brand-logo"><i class="fas fa-church"></i></div>
+                            <h3>Capillas Memoriales</h3>
+                            <p data-en="Funeral Services">Servicios funerarios</p>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <img src="https://drive.google.com/uc?export=view&id=1xJgdrQ6TMlk7j4vKCDtroYb6IrVB6B_s" alt="La Auxiliadora" style="width: 80px; height: 80px; object-fit: contain;">
+                            </div>
+                            <h3>La Auxiliadora</h3>
+                            <p data-en="Funeral Services">Servicios funerarios</p>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo"><i class="fas fa-home"></i></div>
+                            <h3>Su Casa en USA</h3>
+                            <p data-en="Real Estate">Real Estate</p>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo"><i class="fas fa-graduation-cap"></i></div>
+                            <h3>More Real Success</h3>
+                            <p data-en="Education">Educación</p>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo"><i class="fas fa-building"></i></div>
+                            <h3>More Homes Realty</h3>
+                            <p data-en="Real Estate">Real Estate</p>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo"><i class="fas fa-utensils"></i></div>
+                            <h3>El Quijite Volcán</h3>
+                            <p data-en="Restaurant">Restaurante</p>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo"><i class="fas fa-bed"></i></div>
+                            <h3>Hotel Patio de Don Moncho</h3>
+                            <p data-en="Hospitality">Hospedaje</p>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo"><i class="fas fa-car"></i></div>
+                            <h3>Auto Hotel Royal</h3>
+                            <p data-en="Hospitality">Hospedaje</p>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo"><i class="fas fa-plane"></i></div>
+                            <h3>Aerosal</h3>
+                            <p data-en="Aviation">Aviación</p>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section id="herramientas" class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2 data-en="Tools I Master">Herramientas que manejo</h2>
+                    <p data-en="Technical skills and software expertise">Habilidades técnicas y dominio de software</p>
+                </div>
+                <div class="tools-grid">
+                    <div class="tool-category">
+                        <h3 class="category-title">
+                            <i class="fas fa-file-alt"></i>
+                            <span data-en="Office Suite">Ofimática</span>
+                        </h3>
+                        <div class="tool-list">
+                            <span class="tool-item">Microsoft Word</span>
+                            <span class="tool-item">Microsoft Excel</span>
+                            <span class="tool-item">Microsoft PowerPoint</span>
+                        </div>
+                    </div>
+                    <div class="tool-category">
+                        <h3 class="category-title">
+                            <i class="fas fa-paint-brush"></i>
+                            <span data-en="Design">Diseño</span>
+                        </h3>
+                        <div class="tool-list">
+                            <span class="tool-item">Adobe Photoshop</span>
+                            <span class="tool-item">Adobe Illustrator</span>
+                            <span class="tool-item">Adobe Premiere</span>
+                            <span class="tool-item">Adobe Lightroom</span>
+                        </div>
+                    </div>
+                    <div class="tool-category">
+                        <h3 class="category-title">
+                            <i class="fas fa-robot"></i>
+                            <span data-en="AI">IA</span>
+                        </h3>
+                        <div class="tool-list">
+                            <span class="tool-item">ChatGPT</span>
+                            <span class="tool-item">Gemini</span>
+                            <span class="tool-item">Claude</span>
+                            <span class="tool-item">DeepSeek</span>
+                        </div>
+                    </div>
+                    <div class="tool-category">
+                        <h3 class="category-title">
+                            <i class="fas fa-globe"></i>
+                            <span data-en="Web Development">Desarrollo Web</span>
+                        </h3>
+                        <div class="tool-list">
+                            <span class="tool-item">WordPress</span>
+                            <span class="tool-item">Squarespace</span>
+                        </div>
+                    </div>
+                    <div class="tool-category">
+                        <h3 class="category-title">
+                            <i class="fas fa-code"></i>
+                            <span data-en="Programming">Programación</span>
+                        </h3>
+                        <div class="tool-list">
+                            <span class="tool-item">Python</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contacto" class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2 data-en="Contact">Contacto</h2>
+                    <p data-en="Let's connect and work together">Conectemos y trabajemos juntos</p>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <h3 data-en="Email">Correo Electrónico</h3>
+                        <p>pedro.davila.sv@gmail.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+                        <h3>LinkedIn</h3>
+                        <p>linkedin.com/in/pedro-dávila/</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fab fa-behance"></i></div>
+                        <h3>Behance</h3>
+                        <p>behance.net/kyquedavila/</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <h3 data-en="Phone">Teléfono</h3>
+                        <p>+503 7866-0004</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <!-- Footer Brand -->
+                <div class="footer-brand">
+                    <h3 class="footer-logo">Pedro Dávila</h3>
+                    <p class="footer-tagline" data-en="Digital Marketing Specialist transforming brands through data-driven strategies and creative excellence.">
+                        Especialista en Marketing Digital transformando marcas a través de estrategias basadas en datos y excelencia creativa.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Behance">
+                            <i class="fab fa-behance"></i>
+                        </a>
+                        <a href="mailto:pedro.davila.sv@gmail.com" class="social-icon" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4 class="footer-title" data-en="Quick Links">Enlaces Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#inicio" data-en="Home">Inicio</a></li>
+                        <li><a href="#experiencia" data-en="Experience">Experiencia</a></li>
+                        <li><a href="#marcas" data-en="Brands">Marcas</a></li>
+                        <li><a href="#herramientas" data-en="Tools">Herramientas</a></li>
+                        <li><a href="#contacto" data-en="Contact">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div class="footer-section">
+                    <h4 class="footer-title" data-en="Services">Servicios</h4>
+                    <ul class="footer-links">
+                        <li><span data-en="Campaign Management">Gestión de Campañas</span></li>
+                        <li><span data-en="Content Strategy">Estrategia de Contenido</span></li>
+                        <li><span data-en="Web Analytics">Analítica Web</span></li>
+                        <li><span data-en="Digital Consulting">Consultoría Digital</span></li>
+                        <li><span data-en="Performance Reports">Reportes de Rendimiento</span></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer-section">
+                    <h4 class="footer-title" data-en="Contact Info">Información de Contacto</h4>
+                    <div class="footer-contact">
+                        <div class="contact-info">
+                            <i class="fas fa-envelope"></i>
+                            <span>pedro.davila.sv@gmail.com</span>
+                        </div>
+                        <div class="contact-info">
+                            <i class="fas fa-phone"></i>
+                            <span>+503 7866-0004</span>
+                        </div>
+                        <div class="contact-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span data-en="Available for remote work worldwide">Disponible para trabajo remoto mundial</span>
+                        </div>
+                        <div class="contact-info">
+                            <i class="fas fa-clock"></i>
+                            <span data-en="Mon - Fri">Lun - Vie</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        <p>&copy; 2024 Pedro Enrique Dávila Gómez. <span data-en="All rights reserved.">Todos los derechos reservados.</span></p>
+                    </div>
+                    <div class="made-with">
+                        <span data-en="Made with">Hecho con</span> 
+                        <i class="fas fa-heart heart-beat"></i> 
+                        <span data-en="and passion for digital marketing">y pasión por el marketing digital</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Top Button -->
+        <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+    </footer>
+
+    <script>
+        // Current language state
+        let currentLanguage = 'es';
+        
+        // Slider functionality
+        let currentSlide = 0;
+        const totalSlides = 7;
+        
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            const container = document.getElementById('slidesContainer');
+            const translateX = -(slideIndex * 100);
+            container.style.transform = `translateX(${translateX}%)`;
+            
+            // Update active states
+            document.querySelectorAll('.slide').forEach((slide, index) => {
+                slide.classList.toggle('active', index === slideIndex);
+            });
+            
+            document.querySelectorAll('.nav-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === slideIndex);
+            });
+        }
+        
+        // Auto-advance slider
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            goToSlide(currentSlide);
+        }, 4000);
+        
+        // Language toggle functionality
+        function toggleLanguage() {
+            const button = document.querySelector('.lang-toggle');
+            const elementsToTranslate = document.querySelectorAll('[data-en]');
+            
+            if (currentLanguage === 'es') {
+                // Switch to English
+                currentLanguage = 'en';
+                button.textContent = 'ES';
+                
+                elementsToTranslate.forEach(element => {
+                    element.setAttribute('data-es', element.textContent);
+                    element.textContent = element.getAttribute('data-en');
+                });
+            } else {
+                // Switch to Spanish
+                currentLanguage = 'es';
+                button.textContent = 'EN';
+                
+                elementsToTranslate.forEach(element => {
+                    element.textContent = element.getAttribute('data-es') || element.getAttribute('data-en');
+                });
+            }
+        }
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            // Back to top button visibility
+            const backToTop = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Pause brand scroll animation on hover
+        const brandsContainer = document.querySelector('.brands-container');
+        if (brandsContainer) {
+            brandsContainer.addEventListener('mouseenter', () => {
+                brandsContainer.style.animationPlayState = 'paused';
+            });
+            
+            brandsContainer.addEventListener('mouseleave', () => {
+                brandsContainer.style.animationPlayState = 'running';
+            });
+        }
+        
+        // Add floating particles effect - Reducido en móvil
+        function createParticle() {
+            // No crear partículas en móvil para mejor rendimiento
+            if (window.innerWidth <= 768) return;
+            
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 4px;
+                height: 4px;
+                background: rgba(65, 105, 225, 0.3);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: -1;
+                left: ${Math.random() * 100}vw;
+                top: 100vh;
+                animation: floatUp ${Math.random() * 10 + 10}s linear forwards;
+            `;
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 20000);
+        }
+        
+        // Add CSS for particle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                to {
+                    transform: translateY(-120vh) translateX(${Math.random() * 200 - 100}px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Create particles periodically - Solo en desktop
+        if (window.innerWidth > 768) {
+            setInterval(createParticle, 5000); // Reducido de 3000 a 5000ms
+        }
+        
+        // Mobile menu toggle (for future implementation)
+        function toggleMobileMenu() {
+            const menu = document.querySelector('.nav-menu');
+            menu.classList.toggle('mobile-active');
+        }
+        
+        // Initialize animations on page load
+        window.addEventListener('load', () => {
+            // Trigger initial animations
+            setTimeout(() => {
+                document.querySelector('.hero').classList.add('animate-in');
+            }, 500);
+
+            // Initialize hero animation
+            initHeroAnimation();
+        });
+
+        // Hero animation functionality - Optimizado para móvil
+        function initHeroAnimation() {
+            const techIcons = [
+                'fas fa-rocket',
+                'fas fa-chart-line', 
+                'fas fa-bullhorn',
+                'fas fa-analytics',
+                'fas fa-brain',
+                'fas fa-laptop-code'
+            ];
+            
+            const techTexts = [
+                'Digital Marketing',
+                'Analytics',
+                'Campaigns',
+                'Strategy', 
+                'Innovation',
+                'Technology'
+            ];
+
+            const iconElement = document.querySelector('.tech-icon i');
+            const textElement = document.querySelector('.tech-text');
+            let currentIndex = 0;
+
+            // Intervalo más largo en móvil para reducir animaciones
+            const interval = window.innerWidth <= 768 ? 5000 : 3000;
+
+            // Change icon and text
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % techIcons.length;
+                
+                // Add fade out effect
+                iconElement.style.opacity = '0';
+                textElement.style.opacity = '0';
+                
+                setTimeout(() => {
+                    iconElement.className = techIcons[currentIndex];
+                    textElement.textContent = techTexts[currentIndex];
+                    
+                    // Fade in
+                    iconElement.style.opacity = '1';
+                    textElement.style.opacity = '1';
+                }, 200);
+                
+            }, interval);
+        }
+        
+        // Add hover effects to nav items - Solo en desktop
+        if (window.innerWidth > 768) {
+            document.querySelectorAll('.nav-item a').forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    this.style.color = 'var(--blue-accent)';
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    this.style.color = 'var(--text-light)';
+                });
+            });
+        }
+        
+        // Enhanced contact item interactions - Optimizado para móvil
+        document.querySelectorAll('.contact-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const icon = this.querySelector('.contact-icon i');
+                
+                // Solo animar en desktop
+                if (window.innerWidth > 768) {
+                    icon.style.animation = 'iconBounce 0.6s ease';
+                    
+                    setTimeout(() => {
+                        icon.style.animation = 'iconBounce 2s ease-in-out infinite';
+                    }, 600);
+                }
+            });
+        });
+
+        // Add scroll reveal animation for footer sections - Optimizado
+        const footerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideInUp 0.8s ease forwards';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe footer sections
+        document.querySelectorAll('.footer-section, .footer-brand').forEach(section => {
+            footerObserver.observe(section);
+        });
+
+        // Optimización adicional para móvil
+        if (window.innerWidth <= 768) {
+            // Reducir la frecuencia de eventos de scroll
+            let ticking = false;
+            
+            function updateScrollEffects() {
+                const header = document.getElementById('header');
+                const backToTop = document.getElementById('backToTop');
+                
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+                
+                ticking = false;
+            }
+            
+            // Reemplazar el event listener de scroll original para móvil
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(updateScrollEffects);
+                    ticking = true;
+                }
+            });
+        }
+
+        // Detectar cambios de orientación en móvil
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                // Recalcular dimensiones después del cambio de orientación
+                const heroAnimation = document.querySelector('.hero-animation');
+                if (heroAnimation && window.innerWidth <= 768) {
+                    heroAnimation.style.width = '250px';
+                    heroAnimation.style.height = '250px';
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>
