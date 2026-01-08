@@ -4,9 +4,36 @@ let platformsVisible = false;
 let countingAnimation = null;
 let counterComplete = false;
 
+// Mobile Menu Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    const navLinks = document.querySelectorAll('.nav-item a');
+
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    }
+
+    // Close menu when a link is clicked
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (hamburger && navMenu) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    });
+});
+
+
 // Counter animation function
 function animateCounter(start, end, duration, callback) {
     const counterElement = document.getElementById('counterNumber');
+    if (!counterElement) return;
+
     const startTime = performance.now();
     
     function updateCounter(currentTime) {
@@ -29,7 +56,8 @@ function animateCounter(start, end, duration, callback) {
         } else {
             counterElement.textContent = `+$${end.toLocaleString()}`;
             counterComplete = true;
-            document.getElementById('counterDisplay').classList.add('complete');
+            const display = document.getElementById('counterDisplay');
+            if(display) display.classList.add('complete');
             if (callback) callback();
         }
     }
@@ -42,34 +70,25 @@ function showPlatforms() {
     if (platformsVisible || !counterComplete) return;
     
     const bubbles = document.querySelectorAll('.platform-bubble');
-    const lines = document.querySelectorAll('.connection-line');
     const counter = document.querySelector('.investment-counter');
     
     platformsVisible = true;
     
     // Activate counter animation
-    counter.classList.add('active');
+    if(counter) counter.classList.add('active');
     
-    // Show connection lines first
-    setTimeout(() => {
-        lines.forEach(line => line.classList.add('visible'));
-    }, 200);
-    
-    // Then show bubbles with stagger
-    setTimeout(() => {
-        bubbles.forEach((bubble, index) => {
-            setTimeout(() => {
-                bubble.classList.add('visible');
-            }, index * 200);
-        });
-    }, 500);
+    // Show bubbles with stagger
+    bubbles.forEach((bubble, index) => {
+        setTimeout(() => {
+            bubble.classList.add('visible');
+        }, index * 200);
+    });
 }
 
 function hidePlatforms() {
     if (!platformsVisible) return;
     
     const bubbles = document.querySelectorAll('.platform-bubble');
-    const lines = document.querySelectorAll('.connection-line');
     const counter = document.querySelector('.investment-counter');
     
     platformsVisible = false;
@@ -77,27 +96,25 @@ function hidePlatforms() {
     // Hide bubbles
     bubbles.forEach(bubble => bubble.classList.remove('visible'));
     
-    // Hide lines
-    setTimeout(() => {
-        lines.forEach(line => line.classList.remove('visible'));
-    }, 200);
-    
     // Deactivate counter
     setTimeout(() => {
-        counter.classList.remove('active');
+        if(counter) counter.classList.remove('active');
     }, 400);
 }
 
 // Event listeners for counter click
-document.getElementById('counterDisplay').addEventListener('click', () => {
-    if (counterComplete) {
-        if (platformsVisible) {
-            hidePlatforms();
-        } else {
-            showPlatforms();
+const counterDisplay = document.getElementById('counterDisplay');
+if (counterDisplay) {
+    counterDisplay.addEventListener('click', () => {
+        if (counterComplete) {
+            if (platformsVisible) {
+                hidePlatforms();
+            } else {
+                showPlatforms();
+            }
         }
-    }
-});
+    });
+}
 
 // Language toggle function
 function toggleLanguage() {
@@ -105,14 +122,14 @@ function toggleLanguage() {
     const elementsToTranslate = document.querySelectorAll('[data-en]');
     if (currentLanguage === 'es') {
         currentLanguage = 'en';
-        button.textContent = 'ES';
+        if(button) button.textContent = 'ES';
         elementsToTranslate.forEach(element => {
             element.setAttribute('data-es', element.textContent);
             element.textContent = element.getAttribute('data-en');
         });
     } else {
         currentLanguage = 'es';
-        button.textContent = 'EN';
+        if(button) button.textContent = 'EN';
         elementsToTranslate.forEach(element => {
             element.textContent = element.getAttribute('data-es') || element.getAttribute('data-en');
         });
@@ -124,47 +141,236 @@ window.addEventListener('DOMContentLoaded', () => {
     animateCounter(0, 100000, 1000);
 });
 
-        // Slider functionality
-        let currentSlide = 0;
-        const totalSlides = 6;
-        
-        function goToSlide(slideIndex) {
-            currentSlide = slideIndex;
-            const container = document.getElementById('slidesContainer');
-            const translateX = -(slideIndex * 100);
-            container.style.transform = `translateX(${translateX}%)`;
-            
-            // Update active states
-            document.querySelectorAll('.slide').forEach((slide, index) => {
-                slide.classList.toggle('active', index === slideIndex);
-            });
-            
-            document.querySelectorAll('.nav-dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index === slideIndex);
-            });
-        }
-        
-        // Auto-advance slider
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            goToSlide(currentSlide);
-        }, 4000);
+/* =========================================
+   EXPERIENCE SLIDER LOGIC WITH SWIPE/DRAG
+   ========================================= */
+let currentSlide = 0;
+const totalSlides = 6;
+let sliderInterval;
+
+function goToSlide(slideIndex) {
+    currentSlide = slideIndex;
+    const container = document.getElementById('slidesContainer');
+    if (!container) return;
+
+    // Normalizar index
+    if (currentSlide < 0) currentSlide = totalSlides - 1;
+    if (currentSlide >= totalSlides) currentSlide = 0;
+
+    const translateX = -(currentSlide * 100);
+    container.style.transform = `translateX(${translateX}%)`;
+    
+    // Update active states
+    document.querySelectorAll('.slide').forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentSlide);
+    });
+    
+    document.querySelectorAll('.nav-dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+    });
+}
+
+function startSliderInterval() {
+    clearInterval(sliderInterval);
+    sliderInterval = setInterval(() => {
+        goToSlide(currentSlide + 1);
+    }, 4000);
+}
+
+// Initialize Slider
+startSliderInterval();
+
+// --- Drag & Swipe Logic for Experience Slider ---
+const sliderArea = document.getElementById('experienceSliderArea');
+let isDraggingSlider = false;
+let startPosSlider = 0;
+let currentTranslateSlider = 0;
+let prevTranslateSlider = 0;
+let animationIDSlider;
+let currentIndexSlider = 0;
+
+if (sliderArea) {
+    // Touch Events
+    sliderArea.addEventListener('touchstart', touchStart);
+    sliderArea.addEventListener('touchend', touchEnd);
+    sliderArea.addEventListener('touchmove', touchMove);
+    
+    // Mouse Events
+    sliderArea.addEventListener('mousedown', touchStart);
+    sliderArea.addEventListener('mouseup', touchEnd);
+    sliderArea.addEventListener('mouseleave', () => {
+        if(isDraggingSlider) touchEnd();
+    });
+    sliderArea.addEventListener('mousemove', touchMove);
+}
+
+function touchStart(index) {
+    return function(event) {
+        clearInterval(sliderInterval); // Pause auto-slide
+        isDraggingSlider = true;
+        startPosSlider = getPositionX(event);
+        // Reset transition temporarily for drag effect if we were to do real-time drag
+        // For simple swipe detection, we just need start pos
+    }
+}
+
+function touchStart(event) {
+    clearInterval(sliderInterval);
+    isDraggingSlider = true;
+    startPosSlider = getPositionX(event);
+}
+
+function touchMove(event) {
+    if (isDraggingSlider) {
+        // Optional: Add realtime drag visual feedback here
+    }
+}
+
+function touchEnd() {
+    isDraggingSlider = false;
+    const movedBy = currentTranslateSlider - prevTranslateSlider;
+    // We will just calculate diff from startPos vs current mouse pos is easier for simple swipe
+    // Let's rely on the last event position (not stored globally in this simplified version, so let's fix logic)
+}
+
+// Simplified Swipe Logic
+let touchStartX = 0;
+let touchEndX = 0;
+
+if (sliderArea) {
+    sliderArea.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+        clearInterval(sliderInterval);
+    });
+    
+    sliderArea.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        startSliderInterval();
+    });
+    
+    sliderArea.addEventListener('mousedown', e => {
+        touchStartX = e.clientX;
+        clearInterval(sliderInterval);
+    });
+    
+    sliderArea.addEventListener('mouseup', e => {
+        touchEndX = e.clientX;
+        handleSwipe();
+        startSliderInterval();
+    });
+}
+
+function handleSwipe() {
+    const threshold = 50; // Minimum distance for swipe
+    if (touchEndX < touchStartX - threshold) {
+        // Swiped Left -> Next Slide
+        goToSlide(currentSlide + 1);
+    }
+    if (touchEndX > touchStartX + threshold) {
+        // Swiped Right -> Prev Slide
+        goToSlide(currentSlide - 1);
+    }
+}
+
+function getPositionX(event) {
+    return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+}
+
+
+/* =========================================
+   BRANDS SCROLL LOGIC (DRAG TO SCROLL + AUTO)
+   ========================================= */
+const brandsWrapper = document.getElementById('brandsScrollWrapper');
+let brandsScrollInterval;
+let isBrandDragging = false;
+let brandStartX;
+let brandScrollLeft;
+
+if (brandsWrapper) {
+    // Auto Scroll Logic
+    function startBrandScroll() {
+        stopBrandScroll();
+        brandsScrollInterval = setInterval(() => {
+            if (!isBrandDragging) {
+                brandsWrapper.scrollLeft += 1;
+                // Infinite scroll reset logic
+                if(brandsWrapper.scrollLeft >= (brandsWrapper.scrollWidth - brandsWrapper.clientWidth)) {
+                     // Optionally reset to 0 or reverse. For simple UX, let it stop or loop if content duplicated.
+                     // Simple loop:
+                     if(brandsWrapper.scrollLeft >= (brandsWrapper.scrollWidth - brandsWrapper.clientWidth - 1)) {
+                         brandsWrapper.scrollLeft = 0; 
+                     }
+                }
+            }
+        }, 30); // Speed
+    }
+
+    startBrandScroll();
+
+    // Drag to Scroll Logic
+    brandsWrapper.addEventListener('mousedown', (e) => {
+        isBrandDragging = true;
+        brandsWrapper.classList.add('active'); // Optional class for cursor
+        brandStartX = e.pageX - brandsWrapper.offsetLeft;
+        brandScrollLeft = brandsWrapper.scrollLeft;
+        stopBrandScroll();
+    });
+
+    brandsWrapper.addEventListener('mouseleave', () => {
+        isBrandDragging = false;
+        startBrandScroll();
+    });
+
+    brandsWrapper.addEventListener('mouseup', () => {
+        isBrandDragging = false;
+        startBrandScroll();
+    });
+
+    brandsWrapper.addEventListener('mousemove', (e) => {
+        if (!isBrandDragging) return;
+        e.preventDefault();
+        const x = e.pageX - brandsWrapper.offsetLeft;
+        const walk = (x - brandStartX) * 2; // Scroll-fast
+        brandsWrapper.scrollLeft = brandScrollLeft - walk;
+    });
+
+    // Touch events are handled natively by overflow:auto but we pause auto-scroll
+    brandsWrapper.addEventListener('touchstart', () => {
+        isBrandDragging = true;
+        stopBrandScroll();
+    });
+    
+    brandsWrapper.addEventListener('touchend', () => {
+        isBrandDragging = false;
+        startBrandScroll();
+    });
+}
+
+function stopBrandScroll() {
+    clearInterval(brandsScrollInterval);
+}
+
 
 // Header scroll effect
 window.addEventListener('scroll', () => {
     const header = document.getElementById('header');
-    if (window.scrollY > 100) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
+    if (header) {
+        if (window.scrollY > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
     }
 
     // Back to top button visibility
     const backToTop = document.getElementById('backToTop');
-    if (window.scrollY > 300) {
-        backToTop.classList.add('visible');
-    } else {
-        backToTop.classList.remove('visible');
+    if (backToTop) {
+        if (window.scrollY > 300) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
     }
 });
 
@@ -201,17 +407,6 @@ document.querySelectorAll('.section').forEach(section => {
     observer.observe(section);
 });
 
-// Pause brand scroll animation on hover
-const brandsContainer = document.querySelector('.brands-container');
-if (brandsContainer) {
-    brandsContainer.addEventListener('mouseenter', () => {
-        brandsContainer.style.animationPlayState = 'paused';
-    });
-    
-    brandsContainer.addEventListener('mouseleave', () => {
-        brandsContainer.style.animationPlayState = 'running';
-    });
-}
 
 // Add floating particles effect - Reduced on mobile
 function createParticle() {
@@ -258,7 +453,8 @@ if (window.innerWidth > 768) {
 // Initialize animations on page load
 window.addEventListener('load', () => {
     setTimeout(() => {
-        document.querySelector('.hero').classList.add('animate-in');
+        const hero = document.querySelector('.hero');
+        if(hero) hero.classList.add('animate-in');
     }, 500);
 });
 
@@ -266,7 +462,7 @@ window.addEventListener('load', () => {
 document.querySelectorAll('.contact-item').forEach(item => {
     item.addEventListener('click', function() {
         const icon = this.querySelector('.contact-icon i');
-        if (window.innerWidth > 768) {
+        if (window.innerWidth > 768 && icon) {
             icon.style.animation = 'iconBounce 0.6s ease';
             setTimeout(() => {
                 icon.style.animation = 'iconBounce 2s ease-in-out infinite';
