@@ -12,17 +12,31 @@
     <header class="header" id="header">
         <nav class="nav-container">
             <a href="#inicio" class="logo">Portfolio</a>
-            <ul class="nav-menu">
+            
+            <!-- Botón Hamburguesa para Móvil -->
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
                 <li class="nav-item"><a href="#inicio" data-en="Home">Inicio</a></li>
                 <li class="nav-item"><a href="#experiencia" data-en="Experience">Experiencia</a></li>
                 <li class="nav-item"><a href="#marcas" data-en="Brands">Marcas</a></li>
                 <li class="nav-item"><a href="#herramientas" data-en="Tools">Herramientas</a></li>
                 <li class="nav-item"><a href="#contacto" data-en="Contact">Contacto</a></li>
+                
+                <!-- Enlaces sociales móviles -->
+                <li class="nav-item mobile-socials">
+                    <a href="https://www.linkedin.com/in/pedro-dávila/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.behance.net/kyquedavila/" target="_blank" rel="noopener noreferrer" aria-label="Behance"><i class="fab fa-behance"></i></a>
+                    <a href="mailto:pedro.davila.sv@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </li>
             </ul>
-            <div style="display: flex; align-items: center;">
-                <div class="social-links">
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" aria-label="Behance"><i class="fab fa-behance"></i></a>
+
+            <div class="nav-extras" style="display: flex; align-items: center;">
+                <div class="social-links desktop-only">
+                    <a href="https://www.linkedin.com/in/pedro-dávila/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.behance.net/kyquedavila/" target="_blank" rel="noopener noreferrer" aria-label="Behance"><i class="fab fa-behance"></i></a>
                     <a href="mailto:pedro.davila.sv@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 </div>
                 <button class="lang-toggle" onclick="toggleLanguage()">EN</button>
@@ -42,40 +56,53 @@
                         </p>
                     </div>
                     <div class="hero-right">
-                        <div class="investment-mindmap" style="position:relative;">
+                        <!-- Estructura Modificada: Plataformas Arriba, Contador Abajo -->
+                        <div class="investment-mindmap">
+                            
+                            <!-- Contenedor de Plataformas (Arriba) -->
+                            <div class="platforms-container-top">
+                                <!-- Google Ads -->
+                                <div class="platform-node">
+                                    <div class="platform-bubble">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" alt="Google Ads" class="platform-logo">
+                                        <div class="platform-info">
+                                            <span class="platform-amount">$7,000</span>
+                                        </div>
+                                        <div class="connection-line-vertical"></div>
+                                    </div>
+                                </div>
+
+                                <!-- TikTok Ads (Diagonal ahora al centro/arriba) -->
+                                <div class="platform-node">
+                                    <div class="platform-bubble">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Tiktok_icon.svg" alt="TikTok Ads" class="platform-logo">
+                                        <div class="platform-info">
+                                            <span class="platform-amount">$3,000</span>
+                                        </div>
+                                        <div class="connection-line-vertical"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Meta Ads -->
+                                <div class="platform-node">
+                                    <div class="platform-bubble">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Meta_Platforms_logo.svg" alt="Meta Ads" class="platform-logo">
+                                        <div class="platform-info">
+                                            <span class="platform-amount">$94,000</span>
+                                        </div>
+                                        <div class="connection-line-vertical"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Contador Central (Abajo) -->
                             <div class="investment-counter">
                                 <div class="counter-display" id="counterDisplay">
                                     <span class="counter-number" id="counterNumber">$0</span>
                                     <div class="counter-label" data-en="Invested in Advertising">Invertido en Pauta</div>
                                 </div>
                             </div>
-                            <div class="platform-node platform-top">
-                                <div class="platform-bubble">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" alt="Google Ads" class="platform-logo">
-                                    <div class="platform-info">
-                                        <span class="platform-name" data-en=""></span>
-                                        <span class="platform-amount">$7,000</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="platform-node platform-bottom">
-                                <div class="platform-bubble">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Meta_Platforms_logo.svg" alt="Meta Ads" class="platform-logo">
-                                    <div class="platform-info">
-                                        <span class="platform-name" data-en=""></span>
-                                        <span class="platform-amount">$94,000</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="platform-node platform-diagonal">
-                                <div class="platform-bubble">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Tiktok_icon.svg" alt="TikTok Ads" class="platform-logo">
-                                    <div class="platform-info">
-                                        <span class="platform-name" data-en=""></span>
-                                        <span class="platform-amount">$3,000</span>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -88,7 +115,8 @@
                     <h2 data-en="Experience & Knowledge">Experiencia y Conocimientos</h2>
                     <p data-en="My key competencies in digital marketing">Mis competencias clave en marketing digital</p>
                 </div>
-                <div class="experience-slider">
+                <!-- Slider con eventos de arrastre en JS -->
+                <div class="experience-slider" id="experienceSliderArea">
                     <div class="slides-container" id="slidesContainer">
                         <div class="slide active">
                             <div class="slide-content">
@@ -152,72 +180,72 @@
                     <h2 data-en="Brands I've Worked With">Marcas con las que he trabajado</h2>
                     <p data-en="Successful collaborations across various industries">Colaboraciones exitosas en diversas industrias</p>
                 </div>
-                <div class="brands-scroll">
-                    <div class="brands-container">
+                <!-- Contenedor scrollable en lugar de animación CSS -->
+                <div class="brands-scroll-wrapper" id="brandsScrollWrapper">
+                    <div class="brands-container" id="brandsContainer">
                         <div class="brand-card">
                             <div class="brand-logo">
-                                <img src="img/capillas.png" alt="capillas" style="width: 80px; height: 80px; object-fit: contain;">
+                                <img src="img/capillas.png" onerror="this.src='https://placehold.co/80x80?text=Logo'" alt="capillas">
                             </div>
                             <h3>Capillas Memoriales</h3>
                             <p data-en="Funeral Services">Servicios funerarios</p>
                         </div>
                         <div class="brand-card">
                             <div class="brand-logo">
-                                <img src="img/auxiliadora.png" alt="auxiliadora" style="width: 80px; height: 80px; object-fit: contain;">
+                                <img src="img/auxiliadora.png" onerror="this.src='https://placehold.co/80x80?text=Logo'" alt="auxiliadora">
                             </div>
                             <h3>La Auxiliadora</h3>
                             <p data-en="Funeral Services">Servicios funerarios</p>
                         </div>
                         <div class="brand-card">
                             <div class="brand-logo">
-                                <img src="img/sucasaenusa.png" alt="sucasaenusa" style="width: 80px; height: 80px; object-fit: contain;">
+                                <img src="img/sucasaenusa.png" onerror="this.src='https://placehold.co/80x80?text=Logo'" alt="sucasaenusa">
                             </div>
                             <h3>Su Casa en USA</h3>
                             <p data-en="Real Estate">Real Estate</p>
                         </div>
                         <div class="brand-card">
                             <div class="brand-logo">
-                                <img src="img/more-success.png" alt="more-success" style="width: 80px; height: 80px; object-fit: contain;">
+                                <img src="img/more-success.png" onerror="this.src='https://placehold.co/80x80?text=Logo'" alt="more-success">
                             </div>
                             <h3>More Real Success</h3>
                             <p data-en="Education">Educación</p>
                         </div>
                         <div class="brand-card">
                             <div class="brand-logo">
-                                <img src="img/more homes.png" alt="more homes" style="width: 80px; height: 80px; object-fit: contain;">
+                                <img src="img/more homes.png" onerror="this.src='https://placehold.co/80x80?text=Logo'" alt="more homes">
                             </div>
                             <h3>More Homes Realty</h3>
                             <p data-en="Real Estate">Real Estate</p>
                         </div>
                         <div class="brand-card">
                             <div class="brand-logo">
-                                <img src="img/quijote.png" alt="el quijote" style="width: 80px; height: 80px; object-fit: contain;">
+                                <img src="img/quijote.png" onerror="this.src='https://placehold.co/80x80?text=Logo'" alt="el quijote">
                             </div>
                             <h3>El Quijite Volcán</h3>
                             <p data-en="Restaurant">Restaurante</p>
                         </div>
                         <div class="brand-card">
                             <div class="brand-logo">
-                                <img src="img/don-moncho.png" alt="don-moncho" style="width: 80px; height: 80px; object-fit: contain;">
+                                <img src="img/don-moncho.png" onerror="this.src='https://placehold.co/80x80?text=Logo'" alt="don-moncho">
                             </div>
                             <h3>Hotel Patio de Don Moncho</h3>
                             <p data-en="Hospitality">Hospedaje</p>
                         </div>
                         <div class="brand-card">
                             <div class="brand-logo">
-                                <img src="img/royal.png" alt="royal" style="width: 80px; height: 80px; object-fit: contain;">
+                                <img src="img/royal.png" onerror="this.src='https://placehold.co/80x80?text=Logo'" alt="royal">
                             </div>
                             <h3>Auto Hotel Royal</h3>
                             <p data-en="Hospitality">Hospedaje</p>
                         </div>
                         <div class="brand-card">
                             <div class="brand-logo">
-                                <img src="img/aerosal.png" alt="aerosal" style="width: 80px; height: 80px; object-fit: contain;">
+                                <img src="img/aerosal.png" onerror="this.src='https://placehold.co/80x80?text=Logo'" alt="aerosal">
                             </div>
                             <h3>Aerosal</h3>
                             <p data-en="Aviation">Aviación</p>
                         </div>
-                       
                     </div>
                 </div>
             </div>
@@ -297,21 +325,21 @@
                     <p data-en="Let's connect and work together">Conectemos y trabajemos juntos</p>
                 </div>
                 <div class="contact-grid">
-                    <div class="contact-item">
+                    <a href="mailto:pedro.davila.sv@gmail.com" class="contact-item" style="text-decoration: none; color: inherit;">
                         <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                         <h3 data-en="Email">Correo Electrónico</h3>
                         <p>pedro.davila.sv@gmail.com</p>
-                    </div>
-                    <div class="contact-item">
+                    </a>
+                    <a href="https://www.linkedin.com/in/pedro-dávila/" target="_blank" rel="noopener noreferrer" class="contact-item" style="text-decoration: none; color: inherit;">
                         <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
                         <h3>LinkedIn</h3>
                         <p>linkedin.com/in/pedro-dávila/</p>
-                    </div>
-                    <div class="contact-item">
+                    </a>
+                    <a href="https://www.behance.net/kyquedavila/" target="_blank" rel="noopener noreferrer" class="contact-item" style="text-decoration: none; color: inherit;">
                         <div class="contact-icon"><i class="fab fa-behance"></i></div>
                         <h3>Behance</h3>
                         <p>behance.net/kyquedavila/</p>
-                    </div>
+                    </a>
                 </div>
             </div>
         </section>
@@ -326,16 +354,16 @@
                         Especialista en Marketing Digital transformando marcas a través de estrategias basadas en datos y excelencia creativa.
                     </p>
                     <div class="footer-social">
-                        <a href="#" class="social-icon" aria-label="LinkedIn">
+                        <a href="https://www.linkedin.com/in/pedro-dávila/" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                             <i class="fab fa-linkedin"></i>
                         </a>
-                        <a href="#" class="social-icon" aria-label="Behance">
+                        <a href="https://www.behance.net/kyquedavila/" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Behance">
                             <i class="fab fa-behance"></i>
                         </a>
                         <a href="mailto:pedro.davila.sv@gmail.com" class="social-icon" aria-label="Email">
                             <i class="fas fa-envelope"></i>
                         </a>
-                        <a href="#" class="social-icon" aria-label="WhatsApp">
+                        <a href="https://wa.me/50378660004" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                             <i class="fab fa-whatsapp"></i>
                         </a>
                     </div>
@@ -368,11 +396,11 @@
                     <div class="footer-contact">
                         <div class="contact-info">
                             <i class="fas fa-envelope"></i>
-                            <span>pedro.davila.sv@gmail.com</span>
+                            <a href="mailto:pedro.davila.sv@gmail.com" style="color:inherit; text-decoration:none;">pedro.davila.sv@gmail.com</a>
                         </div>
                         <div class="contact-info">
                             <i class="fas fa-phone"></i>
-                            <span>+503 7866-0004</span>
+                            <a href="https://wa.me/50378660004" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration:none;">+503 7866-0004</a>
                         </div>
                         <div class="contact-info">
                             <i class="fas fa-map-marker-alt"></i>
